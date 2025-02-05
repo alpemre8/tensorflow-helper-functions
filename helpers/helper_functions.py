@@ -111,6 +111,53 @@ def plot_loss_curves(history):
 #--------------------------------------------------------------------------
 
 
+def load_and_prep_image(filename, img_shape=224):
+  """
+  Reads an image from filename, turns it into a tensor
+  and reshapes it to (img_shape, img_shape, colour_channel).
+  """
+  img = tf.io.read_file(filename)
+
+  img = tf.image.decode_image(img, channels=3)
+
+  img = tf.image.resize(img, size = [img_shape, img_shape])
+
+  img = img/255.
+  return img
+
+
+#---------------------------------------------------------------------
+
+
+def pred_and_plot(model, filename, class_names):
+  """
+  Imports an image located at filename, makes a prediction on it with
+  a trained model and plots the image with the predicted class as the
+  title.
+  """
+  img = load_and_prep_image(filename)
+  pred = model.predict(tf.expand_dims(img, axis=0))
+
+  if len(pred[0]) > 1:
+    pred_class = class_names[pred.argmax()]
+
+  else:
+    pred_class = class_names[int(tf.round(pred)[0][0])]
+
+  plt.imshow(img)
+  plt.title(f"Prediction: {pred_class}")
+  plt.axis(False)
+
+
+
+#-----------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
