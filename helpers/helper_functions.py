@@ -7,7 +7,9 @@ import tensorflow as tf
 
 
 def plot_decision_boundary(model, X, y):
-
+  """
+  Plot decision_boundary for binary classification model
+  """
   x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
   y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
 
@@ -34,7 +36,9 @@ def plot_decision_boundary(model, X, y):
 
 
 def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_size=15):
-
+  """
+  Plot confusion matrix for classification problem(binary or multi)
+  """
   cm = confusion_matrix(y_true, y_pred)
   cm_norm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
   n_classes = cm.shape[0]
@@ -75,6 +79,12 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
 
 
 def plot_loss_curves(history):
+  """
+  Plot loss curves for model.
+  loss & val_loss,
+  accuracys & val_accuracy.
+  Need to assign validation_set when fitting the model.
+  """
 
   loss = history.history["loss"]
   val_loss = history.history["val_loss"]
