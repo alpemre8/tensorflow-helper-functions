@@ -151,7 +151,33 @@ def pred_and_plot(model, filename, class_names):
 
 
 #-----------------------------------------------------------------
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import random
 
+def view_random_image(target_dir, target_class):
+  """
+  Setup target directory(we'll view images from here)
+  Example usage: ("pizza_steak/train/" contains two class "pizza" & "steak")
+  If target_dir="pizza_steak/train/"
+  target_class="steak"
+  It shows view, picked random image of steak class.
+  """
+
+  target_folder = target_dir+target_class
+  random_image = random.sample(os.listdir(target_folder), 1)
+
+  img = mpimg.imread(target_folder + "/" + random_image[0])
+  plt.imshow(img)
+  plt.title(target_class)
+  plt.axis("off")
+  print(f"Image shape: {img.shape}")
+  return img
+
+
+#--------------------------------------------------------------------------------------------------
+
+  
 
 
 
