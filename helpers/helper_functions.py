@@ -4,6 +4,7 @@ import itertools
 from sklearn.metrics import confusion_matrix
 import pandas as pd
 import tensorflow as tf
+import os
 
 
 def plot_decision_boundary(model, X, y):
