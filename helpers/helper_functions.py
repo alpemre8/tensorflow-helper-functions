@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import itertools
-from sklearn.metrics import consufison_matrix
+from sklearn.metrics import confusion_matrix
 import pandas as pd
 import tensorflow as tf
 
