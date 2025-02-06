@@ -194,7 +194,8 @@ def create_tensorboard_callback(dir_name, experiment_name):
   return tensorboard_callback
 
 #--------------------------------------------------------------------------------------------------------------------
-
+import tensorflow as tf
+import tensorflow_hub as hub
 def create_model(model_url, num_classes, image_shape):
   """
   Takes a TensorFlow Hub URL and creates a Keras Sequential model
@@ -225,6 +226,9 @@ def create_model(model_url, num_classes, image_shape):
   ])
 
   return model
+
+
+#----------------------------------------------------------------------------------------------
 
 
 
