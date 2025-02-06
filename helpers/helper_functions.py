@@ -178,9 +178,53 @@ def view_random_image(target_dir, target_class):
 
 #--------------------------------------------------------------------------------------------------
 
-  
 
+import datetime
 
+def create_tensorboard_callback(dir_name, experiment_name):
+  """
+  create a tensorboard callback
+  dir_name(str): Write a dir_name to save
+  experiment_name(str): Write an experiment_name it shows under dir_name when open the dir_name folder.
+
+  """
+  log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+  tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
+  print(f"Saving TensorBoard log files to: {log_dir}")
+  return tensorboard_callback
+
+#--------------------------------------------------------------------------------------------------------------------
+
+def create_model(model_url, num_classes, image_shape):
+  """
+  Takes a TensorFlow Hub URL and creates a Keras Sequential model
+  with it.
+
+  Args:
+    model_url (str): A TensorFlow Hub feature extraction URL.
+    num_classes (int): Number of output neurons in output layer,
+    should be equal to number of target classes(for binary 1 neuron).
+
+  Returns:
+    An uncompiled Keras Sequential model with model_url as feature
+    extraxtor layer and Dense output layer with num_classes outputs.
+
+    Warning: in KerasLayer(trainable=False) !!!
+  """
+  image_shape = image_shape
+  feature_extractor_layer = hub.KerasLayer(model_url,
+                                          trainable=False,
+                                          input_shape=image_shape+(3,),
+                                          name="feature_extractor_layer")
+
+  model = tf.keras.Sequential([
+    feature_extractor_layer,
+    tf.keras.layers.Dense(num_classes, activation="softmax",
+                         name="output_layer")
+    
+  ])
+
+  return model
 
 
 
