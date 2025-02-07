@@ -196,6 +196,7 @@ def create_tensorboard_callback(dir_name, experiment_name):
 #--------------------------------------------------------------------------------------------------------------------
 import tensorflow as tf
 import tensorflow_hub as hub
+import tf_keras as keras
 def create_model(model_url, num_classes, image_shape):
   """
   Takes a TensorFlow Hub URL and creates a Keras Sequential model
@@ -218,9 +219,9 @@ def create_model(model_url, num_classes, image_shape):
                                           input_shape=image_shape+(3,),
                                           name="feature_extractor_layer")
 
-  model = tf.keras.Sequential([
+  model = keras.Sequential([
     feature_extractor_layer,
-    tf.keras.layers.Dense(num_classes, activation="softmax",
+    keras.layers.Dense(num_classes, activation="softmax",
                          name="output_layer")
     
   ])
