@@ -185,7 +185,8 @@ def create_tensorboard_callback(dir_name, experiment_name):
   """
   create a tensorboard callback
   dir_name(str): Write a dir_name to save
-  experiment_name(str): Write an experiment_name it shows under dir_name when open the dir_name folder.
+  experiment_name(str): Write an experiment_name it shows under dir_name
+  when open the dir_name folder.
 
   """
   log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -232,10 +233,45 @@ def create_model(model_url, num_classes, image_shape):
 #----------------------------------------------------------------------------------------------
 
 
+import zipfile
+
+def unzip_data(filename):
+  """
+  Unzips filename into the current working directory.
+
+  Args:
+    filename (str): a filepath to a target zip folder to be unzipped.
+  """
+
+  zip_ref = zipfile.ZipFile(filename, "r")
+  zip_ref.extractall()
+  zip_ref.close()
 
 
+#--------------------------------------------------------------------------------
 
 
+import os
+
+def walk_through_dir(dir_path):
+  """
+  Walks through dir_path returning its contents.
+
+  Args:
+    dir_path(str): target directory
+
+  Returns:
+   A print out of:
+     number of subdirectories in dir_path
+     number of images (files) in each subdirectory
+     name of each subdirectory
+  """
+
+  for dirpath, dirnames, filenames in os.walk(dir_path):
+    print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
+
+
+#------------------------------------------------------------------------------------------------------
 
 
 
